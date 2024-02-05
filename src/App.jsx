@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -46,7 +47,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  NFL
                 </a>
                 <ul className="dropdown-menu">
                   <li>
@@ -77,7 +78,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  NBA
                 </a>
                 <ul className="dropdown-menu">
                   <li>
@@ -108,7 +109,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  NCAAM
                 </a>
                 <ul className="dropdown-menu">
                   <li>
@@ -139,7 +140,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  NCAAW
                 </a>
                 <ul className="dropdown-menu">
                   <li>
@@ -170,7 +171,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  NHL
                 </a>
                 <ul className="dropdown-menu">
                   <li>
@@ -201,7 +202,7 @@ function App() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  ...
                 </a>
                 <ul className="dropdown-menu">
                   <li>
