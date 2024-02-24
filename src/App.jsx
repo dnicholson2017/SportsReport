@@ -11,6 +11,8 @@ import Card from "./components/card";
 function App() {
   const [playlistId, setPlaylistId] = useState(null);
   const [list2, setList2] = useState(null);
+  const [nbaList, setNbaList] = useState(null);
+
 
   
   useEffect(() => {
@@ -45,12 +47,37 @@ function App() {
       }
       catch (error) {
         console.error("Error fetching data", error);
-        throw error
+        throw error;
       }
     }
 
     callYTAPI2().catch(console.error);
   }, [playlistId])
+
+  useEffect(() => {
+    const callNbaApi = async () => {
+      try {
+        const headers= new Headers({
+          'X-RapidAPI-Key': '04a539da4fmshbeb70d75fafb072p1e6fd8jsn0f8c67fcb8eb',
+          'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
+        });
+
+        const call = await fetch("https://api-basketball.p.rapidapi.com/games?date=2019-11-26", {
+          method:"GET",
+          headers:headers
+        });
+        const response = await call.json();
+        console.log(response);
+        setNbaList(response);
+      }
+      catch (error) {
+        console.error("Error fetching data", error);
+        throw error;
+      }
+    }
+
+    callNbaApi().catch(console.error);
+  }, [])
 
 
 
@@ -59,7 +86,9 @@ function App() {
       <Carousel/>
       <Navbar/>
       <div class="container">
-        <LeftRail/>
+        <LeftRail
+          nbaList={nbaList}
+        />
         <Card
           list2={list2}
         />
