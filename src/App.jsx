@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const callYTAPI = async () => {
       try {
-        const response = await fetch("https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forHandle=%40NBA&key=AIzaSyC4TailqItlEi4rCx_51CBNubMmw-tQ0-4");
+        // const response = await fetch("https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forHandle=%40NBA&key=AIzaSyC4TailqItlEi4rCx_51CBNubMmw-tQ0-4");
         const data = await response.json();
         const playlist = data.items[0].contentDetails.relatedPlaylists.uploads;
         console.log(data);
@@ -38,7 +38,7 @@ function App() {
     const callYTAPI2 = async () => {
       try {
         if (playlistId) {
-          const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=10&playlistId=${playlistId}&key=AIzaSyC4TailqItlEi4rCx_51CBNubMmw-tQ0-4`);
+          // const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=10&playlistId=${playlistId}&key=AIzaSyC4TailqItlEi4rCx_51CBNubMmw-tQ0-4`);
           const data = await response.json();
           console.log(data);
           console.log(playlistId);
@@ -62,10 +62,10 @@ function App() {
           'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
         });
 
-        const call = await fetch("https://api-basketball.p.rapidapi.com/games?date=2019-11-26", {
-          method:"GET",
-          headers:headers
-        });
+        // const call = await fetch("https://api-basketball.p.rapidapi.com/games?date=2019-11-26", {
+        //   method:"GET",
+        //   headers:headers
+        // });
         const response = await call.json();
         console.log(response);
         setNbaList(response);
