@@ -1,6 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 let Navbar = () => {
+
+    const [nbaTeams, setNbaTeams] = useState(null);
+
+    useEffect(() => {
+        const callDatabase = async () => {
+            try {
+                const call = await fetch ('http://localhost:5000/api/nba-teams');
+                const response = await call.json();
+                console.log(response);
+                setNbaTeams(response);
+            }
+            catch (error) {
+                console.error("Error fetching data", error);
+                throw error;
+            }
+        }
+        callDatabase().catch(console.error);
+
+    }, []);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -63,24 +83,13 @@ let Navbar = () => {
                         NBA
                         </a>
                         <ul className="dropdown-menu">
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Action
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Another action
-                            </a>
-                        </li>
-                        <li>
-                            <hr className="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Something else here
-                            </a>
-                        </li>
+                            {nbaTeams && nbaTeams.map((team, index) => (
+                                <li key={index}>
+                                <a className="dropdown-item" href="#">
+                                    {team.Team_Name}
+                                </a>
+                                </li>
+                            ))}
                         </ul>
                     </li>
                     <li className="nav-item dropdown">

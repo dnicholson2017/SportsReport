@@ -1,9 +1,27 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+// Enable CORS middleware
+app.use(cors());
 
 // Define routes
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+// Define API endpoint to fetch NBA team names
+app.get('/api/nba-teams', (req, res) => {
+  const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching NBA teams:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json(results);
+    }
+  });
 });
 
 // Start the server
