@@ -10,44 +10,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// // Define API endpoint to fetch NBA team names
-// app.get('/api/nba-teams', (req, res) => {
-//   const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
-
-//   connection.query(query, (error, results) => {
-//     if (error) {
-//       console.error('Error fetching NBA teams:', error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     } else {
-//       res.json(results);
-//     }
-//   });
-// });
-
-// // Define API endpoint to fetch NBA team details based on team_code
-// app.get('/api/nba-teams/:team_code', (req, res) => {
-//   const teamCode = req.params.team_code;
-//   const query = `SELECT * FROM nbagame_schema.\`nba teams\` WHERE Team_Code = ?;`;
-
-//   connection.query(query, [teamCode], (error, results) => {
-//     if (error) {
-//       console.error('Error fetching NBA team details:', error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     } else {
-//       if (results.length === 0) {
-//         // If no team found for the provided team_code
-//         res.status(404).json({ error: 'Team not found' });
-//       } else {
-//         // Return the details of the team
-//         res.json(results[0]);
-//       }
-//     }
-//   });
-// });
-
-// Define API endpoint to fetch NBA team names and details
+// Define API endpoint to fetch NBA team names
 app.get('/api/nba-teams', (req, res) => {
-  const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';
+  const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
 
   connection.query(query, (error, results) => {
     if (error) {
@@ -59,6 +24,56 @@ app.get('/api/nba-teams', (req, res) => {
   });
 });
 
+// Define API endpoint to fetch NBA team details based on team_code
+app.get('/api/nba-teams/:team_code', (req, res) => {
+  const teamCode = req.params.team_code;
+  const query = `SELECT * FROM nbagame_schema.\`nba teams\` WHERE Team_Code = ?;`;
+
+  connection.query(query, [teamCode], (error, results) => {
+    if (error) {
+      console.error('Error fetching NBA team details:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      if (results.length === 0) {
+        // If no team found for the provided team_code
+        res.status(404).json({ error: 'Team not found' });
+      } else {
+        // Return the details of the team
+        res.json(results[0]);
+      }
+    }
+  });
+});
+
+// // Define API endpoint to fetch NBA team names and details
+// app.get('/api/nba-teams', (req, res) => {
+//   const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';
+
+//   connection.query(query, (error, results) => {
+//     if (error) {
+//       console.error('Error fetching NBA teams:', error);
+//       res.status(500).json({ error: 'Internal server error' });
+//     } else {
+//       res.json(results);
+//     }
+//   });
+// });
+
+// // Dynamically create server endpoint for selected team
+// app.get('/api/nba-teams/:team_code', (req, res) => {
+//   const teamCode = req.params.team_code;
+//   const query = `SELECT * FROM nbagame_schema.\`nba teams\` WHERE Team_Code = ?;`;
+//   // Execute the query and respond with the team details or 404 if not found
+  
+//   connection.query(query, (error, results) => {
+//     if (error) {
+//       console.error('Error fetching NBA teams:', error);
+//       res.status(500).json({ error: 'Internal server error' });
+//     } else {
+//       res.json(results);
+//     }
+//   });
+// });
 
 // Start the server
 const PORT = process.env.PORT || 5000;

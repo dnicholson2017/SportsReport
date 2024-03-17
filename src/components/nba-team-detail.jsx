@@ -6,14 +6,30 @@ const NbaTeamDetail = () => {
     const [teamDetails, setTeamDetails] = useState(null);
 
     useEffect(() => {
-        fetch(`/api/nba-teams/${team_code}`) // Use the correct endpoint for fetching team details
-            .then(response => response.json())
-            .then(data => {
-                setTeamDetails(data); // Assuming data contains the details of the selected NBA team
-            })
-            .catch(error => {
-                console.error('Error fetching team details:', error);
-            });
+        // fetch(`/api/nba-teams/${team_code}`) // Use the correct endpoint for fetching team details
+        //     .then(response => response)
+        //     .then(data => {
+        //         setTeamDetails(data); // Assuming data contains the details of the selected NBA team
+
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching team details:', error);
+        //         console.log(error);
+        //     });
+
+        const callDatabase = async () => {
+            try {
+                const call = await fetch (`http://localhost:5000/api/nba-teams/${team_code}`);
+                const response = await call.json();
+                console.log(response);
+                setTeamDetails(response);
+            }
+            catch (error) {
+                console.error("Error fetching data", error);
+                throw error;
+            }
+        }
+        callDatabase().catch(console.error);
     }, [team_code]);
 
     return (
