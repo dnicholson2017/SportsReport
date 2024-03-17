@@ -10,9 +10,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Define API endpoint to fetch NBA team names
+// Define API endpoint to fetch NBA team names and team_code
 app.get('/api/nba-teams', (req, res) => {
-  const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
+  const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';
 
   connection.query(query, (error, results) => {
     if (error) {
@@ -45,9 +45,9 @@ app.get('/api/nba-teams/:team_code', (req, res) => {
   });
 });
 
-// // Define API endpoint to fetch NBA team names and details
+// // Define API endpoint to fetch NBA team names
 // app.get('/api/nba-teams', (req, res) => {
-//   const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';
+//   const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
 
 //   connection.query(query, (error, results) => {
 //     if (error) {
