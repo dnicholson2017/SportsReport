@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import './navbar.css'
+
 
 let Navbar = () => {
 
@@ -84,18 +86,29 @@ let Navbar = () => {
                         NBA
                         </a>
                         <ul className="dropdown-menu">
-                            {nbaTeams && nbaTeams.map((team, index) => (
-                                <li key={index}>
-                                    <Link
-                                        to={`/nba-team/${team.Team_Code}`} // Use team.Team_Code instead of team_code
-                                        key={team.Team_Code}
-                                    >
-                                        <a className="dropdown-item" href="#">
-                                            {team.Team_Name}
-                                        </a>
-                                    </Link>  
-                                </li>
-                            ))}
+                            <div>
+                                <Link to={`/nba-players`}>
+                                    Players
+                                </Link>
+                                <p>Home</p>
+                                <p>Scores</p>
+                                <p>Schedule</p>
+                                <p>Stats</p>
+                            </div>
+                            <div>
+                                {nbaTeams && nbaTeams.map((team, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            to={`/nba-team/${team.Team_Code}`} // Use team.Team_Code instead of team_code
+                                            key={team.Team_Code}
+                                        >
+                                            <a className="dropdown-item" href="#">
+                                                {team.Team_Name}
+                                            </a>
+                                        </Link>  
+                                    </li>
+                                ))}
+                            </div>
                         </ul>
 
                     </li>

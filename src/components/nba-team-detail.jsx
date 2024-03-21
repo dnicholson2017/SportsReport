@@ -37,8 +37,13 @@ const NbaTeamDetail = () => {
             {teamDetails ? (
                 <div>
                     <h2>Team Details for {teamDetails.Team_Name}</h2> {/* Use Team_Name property */}
+                    <p>Established: {teamDetails.Established}</p> {/* Use Conference property */}
                     <p>City: {teamDetails.City}</p> {/* Use City property */}
                     <p>Conference: {teamDetails.Conference}</p> {/* Use Conference property */}
+                    <p>Division: {teamDetails.Division}</p> {/* Use City property */}
+                    <p>Arena: {teamDetails.Arena}</p> {/* Use Conference property */}
+                    <p>Titles: {teamDetails['Number of Chamionships']}</p> {/* Use City property */}
+                    <p>Arena Capacity: {teamDetails["Arena Capacity"]}</p> {/* Use City property */}
                     {/* Display other team details as needed */}
                 </div>
             ) : (

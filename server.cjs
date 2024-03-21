@@ -10,6 +10,23 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Define API endpoint to fetch NBA player data
+// request (req) and response (res)
+app.get('/api/players', (req, res) => {
+  // write desired query
+  const query = 'SELECT * FROM nbagame_schema.players GROUP BY Name;';
+
+  // make connection to the database to make the query
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching player data', error);
+      res.status(500).json({error: 'Internal server error'});
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 // Define API endpoint to fetch NBA team names and team_code
 app.get('/api/nba-teams', (req, res) => {
   const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';

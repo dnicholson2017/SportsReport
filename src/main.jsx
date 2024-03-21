@@ -5,6 +5,7 @@ import './index.css'
 import "bootstrap/dist/css/bootstrap.min.css"  // add here so it is available in all components
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NbaView from './routes/NbaTeamView.jsx'
+import PlayerView from './routes/NbaPlayerView.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path='/' element={<App/>} />
       <Route path='/nba-team/:team_code' element={<NbaView />} />
+      <Route path='/nba-players' element={<PlayerView />} />
     </Routes>
   </BrowserRouter>
 )
