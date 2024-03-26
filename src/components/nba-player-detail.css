@@ -1,0 +1,14 @@
+.parent-container {
+    width: 100%;
+}
+
+.player-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+}
+
+.info-container {
+    justify-content: space-between;
+}

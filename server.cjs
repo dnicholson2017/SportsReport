@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 // request (req) and response (res)
 app.get('/api/players', (req, res) => {
   // write desired query
-  const query = 'SELECT * FROM nbagame_schema.players GROUP BY Name;';
+  const query = 'SELECT * FROM nbagame_schema.players GROUP BY Name, season;';
 
   // make connection to the database to make the query
   connection.query(query, (error, results) => {
