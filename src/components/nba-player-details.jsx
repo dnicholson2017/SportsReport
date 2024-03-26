@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 
 const NbaPlayerDetail = () => {
 
+    const { player_id } = useParams();
+
     return (
         <div>
             hello

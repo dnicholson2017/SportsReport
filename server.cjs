@@ -62,6 +62,40 @@ app.get('/api/nba-teams/:team_code', (req, res) => {
   });
 });
 
+// Define api endpoint to fetch stats of a player
+app.get('/api/nba-player/:player_id', (req, res) => {
+  // create a variable for the param from the route path
+  const playerID = req.params.player_id;
+  // create a query
+  const query = `SELECT season, SUM(FG) AS total_FG, SUM(3PA) AS total_3PA, SUM(FT) AS total_FT
+                FROM (
+                    SELECT FG, 3PA, FT, season
+                    FROM nbagame_schema.player_home_game_basic_stats
+                    WHERE id = ?
+                    UNION ALL
+                    SELECT FG, 3PA, FT, season
+                    FROM nbagame_schema.player_away_game_basic_stats
+                    WHERE id = ?
+                ) AS combined_stats
+                GROUP BY season;
+                `
+  // playerID, playerID is passed twice because it's needed in both home and away tables
+  connection.query(query, [playerID, playerID], (error, results) => {
+    if (error) {
+      console.error('Error fetching NBA player details:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      if (results.length === 0) {
+        // If no team found for the provided team_code
+        res.status(404).json({ error: 'Player not found' });
+      } else {
+        // Return the details of the team
+        res.json(results[0]);
+      }
+    }
+  });
+})
+
 // // Define API endpoint to fetch NBA team names
 // app.get('/api/nba-teams', (req, res) => {
 //   const query = 'SELECT Team_Name FROM nbagame_schema.`nba teams`;';
