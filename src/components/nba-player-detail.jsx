@@ -8,17 +8,12 @@ const NbaPlayerDetail = () => {
 
     useEffect(() => {
 
-        const callDatabase =  async() => {
+        const callDatabase = async () => {
             try {
                 const call = await fetch(`http://localhost:5000/api/players`);
                 const response = await call.json();
                 console.log(response);
                 setPlayers(response);
-
-                // Extract unique seasons from players
-                const seasons = [...new Set(response.map(player => player.season))];
-                // Set the initial search input to the first season
-                setSearchInput(seasons[0]);
             } catch (error) {
                 console.error('Error fetching data', error);
             }
@@ -28,10 +23,10 @@ const NbaPlayerDetail = () => {
 
     }, [])
 
-    // create method to filter
+    // create method to filter by season
     const searchItem = (searchValue) => {
         // set search input to the value
-        setSearchInput(searchValue)
+        setSearchInput(searchValue);
         // condition to check if the value is NOT equal to an empty value
         if (searchValue !== "") {
             const filteredData = players.filter((player) => {
@@ -43,6 +38,22 @@ const NbaPlayerDetail = () => {
         }
     }
 
+    // create method to filter by team
+    const filterByTeam = (value) => {
+        const filteredData = players.filter((player) => {
+            return player.Team === value;
+        });
+        // If filterResults is not empty, apply filtering on it as well
+        if (filterResults.length > 0) {
+            const filteredByTeam = filterResults.filter((player) => {
+                return player.Team === value;
+            });
+            setFilterResults(filteredByTeam);
+        } else {
+            setFilterResults(filteredData);
+        }
+    }
+
     return (
         <div className="parent-container">
             <select onChange={(e) => searchItem(e.target.value)}>
@@ -51,10 +62,11 @@ const NbaPlayerDetail = () => {
                     <option key={index} value={season}>{season}</option>
                 ))}
             </select>
-            <select>
-                <option>
-                    Team
-                </option>
+            <select onChange={(e) => filterByTeam(e.target.value)}>
+                <option disabled selected>Select Team</option>
+                {players && [...new Set(players.map(player => player.Team))].map((team, index) => (
+                    <option key={index} value={team}>{team}</option>
+                ))}
             </select>
             <div className="player-container">
                 <div className="info-container">
@@ -95,7 +107,7 @@ const NbaPlayerDetail = () => {
                 </div>
             </div>
         </div>
-        
+
     )
 }
 
