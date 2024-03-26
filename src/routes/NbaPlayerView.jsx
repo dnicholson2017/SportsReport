@@ -1,12 +1,12 @@
 import React from "react";
-import NbaPlayerDetail from "../components/nba-player-detail";
+import NbaPlayers from "../components/nba-players";
 import './NbaPlayerView.css';
 
 const PlayerView = () => {
 
     return (
         <div className="player-parant-component">
-            <NbaPlayerDetail />
+            <NbaPlayers />
         </div>
     )
 

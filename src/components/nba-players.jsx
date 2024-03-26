@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import './nba-player-detail.css';
+import { Link } from "react-router-dom";
+import './nba-players.css';
 
-const NbaPlayerDetail = () => {
+const NbaPlayers = () => {
     const [players, setPlayers] = useState(null);
     const [filterResults, setFilterResults] = useState([]);
     const [searchInput, setSearchInput] = useState(2023);
@@ -76,7 +77,17 @@ const NbaPlayerDetail = () => {
                             <div>No results found</div>
                         ) : (
                             filterResults.map((player, index) => (
-                                <li key={index}>{player.Name}</li>
+                                <li key={index}>
+                                    <Link     
+                                        to={`/nba-players/${player.id}`}
+                                        key={player.id}
+                                    >
+                                        <a>
+                                            {player.Name}
+                                        </a>
+                                    
+                                    </Link>
+                                </li>
                             ))
                         )}
                     </ul>
@@ -111,4 +122,4 @@ const NbaPlayerDetail = () => {
     )
 }
 
-export default NbaPlayerDetail;
+export default NbaPlayers;
