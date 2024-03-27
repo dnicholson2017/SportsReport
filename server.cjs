@@ -67,18 +67,31 @@ app.get('/api/nba-player/:player_id', (req, res) => {
   // create a variable for the param from the route path
   const playerID = req.params.player_id;
   // create a query
-  const query = `SELECT season, SUM(FG) AS total_FG, SUM(3PA) AS total_3PA, SUM(FT) AS total_FT
+  const query = `
+                SELECT \`Player Name\`, season, 
+                      SUM(FG) AS total_FG, 
+                      SUM(3PA) AS total_3PA, 
+                      SUM(FT) AS total_FT,
+                      SUM(ORB) AS total_ORB,
+                      SUM(DRB) AS total_DRB,
+                      SUM(TRB) AS total_TRB,
+                      SUM(AST) AS total_AST,
+                      SUM(STL) AS total_STL,
+                      SUM(BLK) AS total_BLK,
+                      SUM(TOV) AS total_TOV,
+                      SUM(PF) AS total_PF,
+                      SUM(PTS) AS total_PTS
                 FROM (
-                    SELECT FG, 3PA, FT, season
+                    SELECT FG, 3PA, FT, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, season, \`Player Name\`
                     FROM nbagame_schema.player_home_game_basic_stats
                     WHERE id = ?
                     UNION ALL
-                    SELECT FG, 3PA, FT, season
+                    SELECT FG, 3PA, FT, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, season, \`Player Name\`
                     FROM nbagame_schema.player_away_game_basic_stats
                     WHERE id = ?
                 ) AS combined_stats
-                GROUP BY season;
-                `
+                GROUP BY \`Player Name\`, season;
+              `;
   // playerID, playerID is passed twice because it's needed in both home and away tables
   connection.query(query, [playerID, playerID], (error, results) => {
     if (error) {
@@ -89,12 +102,15 @@ app.get('/api/nba-player/:player_id', (req, res) => {
         // If no team found for the provided team_code
         res.status(404).json({ error: 'Player not found' });
       } else {
-        // Return the details of the team
-        res.json(results[0]);
+        // Return the details of the player stats across seasons
+        // unlike the other querys we want the entire response, 
+        // we don't use results[0] to get just the first object in results
+        res.json(results);
       }
     }
   });
-})
+});
+
 
 // // Define API endpoint to fetch NBA team names
 // app.get('/api/nba-teams', (req, res) => {
