@@ -27,6 +27,41 @@ app.get('/api/players', (req, res) => {
   });
 });
 
+app.get(`/api/box-scores`, (req, res) => {
+  // write a query to the database
+  const query = 
+              `SELECT 
+                h.Team_Code AS home_team_code, 
+                h.date AS home_team_date,
+                h.total AS home_total, 
+                h.home AS home_home, 
+                h.season AS home_season, 
+                h.Game_ID AS home_game_id,
+                a.Team_Code AS away_team_code, 
+                a.date AS away_team_date,
+                a.total AS away_total, 
+                a.home AS away_home, 
+                a.season AS away_season, 
+                a.Game_ID AS away_game_id
+            FROM 
+              nbagame_schema.home_team_basic_stats AS h
+            JOIN 
+              nbagame_schema.away_team_basic_stats AS a
+            ON 
+              h.Game_ID = a.Game_ID;
+            `
+  // make connection to the database to make the query
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching player data', error);
+      res.status(500).json({error: 'Internal server error'});
+    } else {
+      res.json(results);
+    }
+  });
+
+});
+
 // Define API endpoint to fetch NBA team names and team_code
 app.get('/api/nba-teams', (req, res) => {
   const query = 'SELECT Team_Name, Team_Code FROM nbagame_schema.`nba teams`;';

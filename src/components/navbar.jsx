@@ -91,7 +91,9 @@ let Navbar = () => {
                                     Players
                                 </Link>
                                 <p>Home</p>
-                                <p>Scores</p>
+                                <Link to={`/box-score`}>
+                                    <p>Scores</p>
+                                </Link>
                                 <p>Schedule</p>
                                 <p>Stats</p>
                             </div>
