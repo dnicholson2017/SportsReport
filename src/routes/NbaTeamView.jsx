@@ -5,7 +5,6 @@ const NbaView = () => {
 
     return (
         <div>
-            hello
             <NbaTeamDetail />
         </div>
     )
