@@ -97,20 +97,18 @@ let Navbar = () => {
                                 <p>Schedule</p>
                                 <p>Stats</p>
                             </div>
-                            <div>
+                            <div className="nba-teams-grid">
                                 {nbaTeams && nbaTeams.map((team, index) => (
                                     <li key={index}>
-                                        <Link
-                                            to={`/nba-team/${team.Team_Code}`} // Use team.Team_Code instead of team_code
-                                            key={team.Team_Code}
-                                        >
-                                            <a className="dropdown-item" href="#">
-                                                {team.Team_Name}
-                                            </a>
-                                        </Link>  
+                                    <Link to={`/nba-team/${team.Team_Code}`} key={team.Team_Code}>
+                                        <a className="dropdown-item" href="#">
+                                        {team.Team_Name}
+                                        </a>
+                                    </Link>
                                     </li>
                                 ))}
                             </div>
+
                         </ul>
 
                     </li>

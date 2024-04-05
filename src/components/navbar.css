@@ -1,0 +1,22 @@
+.nba-teams-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+  }
+  
+  .nba-teams-grid li {
+    list-style: none;
+  }
+  
+  /* Optional: Adjust spacing and styling */
+  .nba-teams-grid a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Optional: Add hover effect */
+  .nba-teams-grid a:hover {
+    background-color: #f0f0f0;
+  }
+
