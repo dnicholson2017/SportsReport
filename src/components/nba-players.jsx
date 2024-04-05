@@ -56,19 +56,21 @@ const NbaPlayers = () => {
     }
 
     return (
-        <div className="parent-container">
-            <select onChange={(e) => searchItem(e.target.value)}>
-                <option disabled selected>Select Season</option>
-                {players && [...new Set(players.map(player => player.season))].map((season, index) => (
-                    <option key={index} value={season}>{season}</option>
-                ))}
-            </select>
-            <select onChange={(e) => filterByTeam(e.target.value)}>
-                <option disabled selected>Select Team</option>
-                {players && [...new Set(players.map(player => player.Team))].map((team, index) => (
-                    <option key={index} value={team}>{team}</option>
-                ))}
-            </select>
+        <div>
+            <div className="select-container">
+                <select onChange={(e) => searchItem(e.target.value)}>
+                    <option disabled selected>Select Season</option>
+                    {players && [...new Set(players.map(player => player.season))].map((season, index) => (
+                        <option key={index} value={season}>{season}</option>
+                    ))}
+                </select>
+                <select onChange={(e) => filterByTeam(e.target.value)}>
+                    <option disabled selected>Select Team</option>
+                    {players && [...new Set(players.map(player => player.Team))].map((team, index) => (
+                        <option key={index} value={team}>{team}</option>
+                    ))}
+                </select>
+            </div>
             <div className="player-container">
                 <div className="info-container">
                     <h3>Name</h3>

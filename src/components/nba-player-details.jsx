@@ -26,9 +26,11 @@ const NbaPlayerDetail = () => {
 
     return (
         <div>
-            {playerStats.length > 0 && (
-                <h1>{playerStats[0]['Player Name']}</h1>
-            )}
+            <div className="player-name-container">
+                {playerStats.length > 0 && (
+                    <h1>{playerStats[0]['Player Name']}</h1>
+                )}
+            </div>
             <div className="player-detail-container">
                 <div>
                     <h3>Season </h3>

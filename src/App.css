@@ -1,9 +1,19 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%; /* Ensure it fills the entire width of the viewport */
+  height: 100vh; /* Make it take up the full height of the viewport */
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Remove any default padding */
 }
+
+.container {
+  max-width: 1280px; /* Keep the max-width as before */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 2rem; /* Add padding if necessary */
+  display: flex;
+  flex-direction: row; /* Items will be organized horizontally */
+  justify-content: space-between; /* Evenly space items */
+}
+
 
 
 .card {
@@ -28,11 +38,4 @@
   line-height: 110px;
   text-align: center;
   background-color: #ddd;
-}
-
-.container {
-  display: flex;
-  flex-direction: row; /* Items will be organized horizontally */
-  justify-content: space-between; /* Evenly space items */
-
 }

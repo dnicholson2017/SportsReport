@@ -1,3 +1,22 @@
 .content-component {
     display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    flex-wrap: wrap; /* Allow items to wrap if they exceed the container's width */
+}
+
+/* Optional: Adjust spacing between items */
+.content-component > div {
+    margin: 0 10px; /* Adjust margin as needed */
+}
+
+.select-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+/* Optional: Adjust spacing between selects */
+.select-container > select {
+    margin: 0 10px; /* Adjust margin as needed */
 }

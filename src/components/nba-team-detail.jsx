@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import './nba-team-detail.css';
 
 const NbaTeamDetail = () => {
     const { team_code } = useParams();
@@ -41,10 +42,10 @@ const NbaTeamDetail = () => {
               'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
             });
     
-            const call = await fetch("https://api-basketball.p.rapidapi.com/games?league=12&season=2023-2024&team=143", {
-              method:"GET",
-              headers:headers
-            });
+            // const call = await fetch("https://api-basketball.p.rapidapi.com/games?league=12&season=2023-2024&team=143", {
+            //   method:"GET",
+            //   headers:headers
+            // });
             const data = await call.json();
             console.log(data);
             const sortedGames = data.response.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -65,8 +66,10 @@ const NbaTeamDetail = () => {
         <div>
             {teamDetails ? (
                 <div>
-                    <div>
+                    <div className="team-name-container">
                         <h2>Team Details for {teamDetails.Team_Name}</h2> {/* Use Team_Name property */}
+                    </div>
+                    <div className="team-info-container">
                         <p>Established: {teamDetails.Established}</p> {/* Use Conference property */}
                         <p>City: {teamDetails.City}</p> {/* Use City property */}
                         <p>Conference: {teamDetails.Conference}</p> {/* Use Conference property */}
@@ -76,32 +79,34 @@ const NbaTeamDetail = () => {
                         <p>Arena Capacity: {teamDetails["Arena Capacity"]}</p> {/* Use City property */}
                         {/* Display other team details as needed */}
                     </div>
-                    <div>
-                        <h3>Last 5 Games</h3>
-                        {games
-                            .filter(item => item.status.short !== "NS") // Filter out games with "Not Started" status
-                            .slice(0, 5) // Take the first 5 games
-                            .map((item, index) => (
-                                <div key={index}>
-                                <div>
-                                    <img src={item.teams.home.logo} width={100} height={50} alt="Home Team Logo" />
-                                    <h5>{item.scores.home.total}</h5>
-                                    <h5>{item.teams.home.name}</h5>
-                                </div>
-                                <div>
-                                    <img src={item.teams.away.logo} width={100} height={50} alt="Away Team Logo" />
-                                    <h5>{item.scores.away.total}</h5>
-                                    <h5>{item.teams.away.name}</h5>
-                                </div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div>
-                        <h3>Roster</h3>
-                    </div>
-                    <div>
-                        <h3>Schedule and Results</h3>
+                    <div className="team-content-container">
+                        <div>
+                            <h3>Last 5 Games</h3>
+                            {games
+                                .filter(item => item.status.short !== "NS") // Filter out games with "Not Started" status
+                                .slice(0, 5) // Take the first 5 games
+                                .map((item, index) => (
+                                    <div key={index}>
+                                    <div>
+                                        <img src={item.teams.home.logo} width={100} height={50} alt="Home Team Logo" />
+                                        <h5>{item.scores.home.total}</h5>
+                                        <h5>{item.teams.home.name}</h5>
+                                    </div>
+                                    <div>
+                                        <img src={item.teams.away.logo} width={100} height={50} alt="Away Team Logo" />
+                                        <h5>{item.scores.away.total}</h5>
+                                        <h5>{item.teams.away.name}</h5>
+                                    </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <div>
+                            <h3>Roster</h3>
+                        </div>
+                        <div>
+                            <h3>Schedule and Results</h3>
+                        </div>
                     </div>
                 </div>
             ) : (
