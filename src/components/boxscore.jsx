@@ -42,21 +42,38 @@ const BoxScores = () => {
     }
 
 
-    // create method to filter by team
-    const filterByTeam = (value) => {
+    // create method to filter by month
+    const filterByMonth = (value) => {
         const filteredData = boxscore.filter((game) => {
             return game.home_team_date === value;
         });
         // If filterResults is not empty, apply filtering on it as well
         if (filterResults.length > 0) {
-            const filteredByTeam = filterResults.filter((game) => {
+            const filteredByMonth = filterResults.filter((game) => {
                 return new Date(game.home_team_date).toLocaleString('en-US', { month: 'long' }) === value;
             });
-            setFilterResults(filteredByTeam);
+            setFilterResults(filteredByMonth);
         } else {
             setFilterResults(filteredData);
         }
     }
+
+        // create method to filter by team
+        const filterByTeam = (value) => {
+            const filteredData = boxscore.filter((game) => {
+                return game.home_team_date === value;
+            });
+            // If filterResults is not empty, apply filtering on it as well
+            if (filterResults.length > 0) {
+                const filteredByTeam = filterResults.filter((game) => {
+                    // Ensure home_season is treated as a string before calling toLowerCase()
+                    return game.home_team_code === value || game.away_team_code === value;   
+                });
+                setFilterResults(filteredByTeam);
+            } else {
+                setFilterResults(filteredData);
+            }
+        }
 
     return (
         <div>
@@ -67,13 +84,13 @@ const BoxScores = () => {
                         <option key={index} value={season}> {season}</option>
                     ))}
                 </select>
-                <select  onChange={(e) => filterByTeam(e.target.value)}>
+                <select  onChange={(e) => filterByMonth (e.target.value)}>
                     <option disabled selected>Select Month</option>
                     {boxscore && [...new Set(boxscore.map(game => new Date(game.home_team_date).toLocaleString('en-US', { month: 'long' })))].map((date, index) => (
                         <option key={index} value={date}> {date}</option>
                     ))}
                 </select>
-                <select>
+                <select onChange={(e) => filterByTeam(e.target.value)}>
                     <option disabled selected>Select Team</option>
                     {boxscore && [...new Set(boxscore.map(game => game.home_team_code))].map((team, index) => (
                         <option key={index} value={team}> {team}</option>

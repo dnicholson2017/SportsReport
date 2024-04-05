@@ -35,32 +35,34 @@ const NbaTeamDetail = () => {
     }, [team_code]);
 
     useEffect(() => {
-        const callNbaApi = async () => {
-          try {
-            const headers= new Headers({
-              'X-RapidAPI-Key': '04a539da4fmshbeb70d75fafb072p1e6fd8jsn0f8c67fcb8eb',
-              'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
-            });
+        if (teamDetails) {
+            const callNbaApi = async () => {
+                try {
+                    const headers = new Headers({
+                        'X-RapidAPI-Key': '04a539da4fmshbeb70d75fafb072p1e6fd8jsn0f8c67fcb8eb',
+                        'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
+                    });
     
-            // const call = await fetch("https://api-basketball.p.rapidapi.com/games?league=12&season=2023-2024&team=143", {
-            //   method:"GET",
-            //   headers:headers
-            // });
-            const data = await call.json();
-            console.log(data);
-            const sortedGames = data.response.sort((a, b) => new Date(b.date) - new Date(a.date));
-            // Take the first 5 games
-            const mostRecentGames = sortedGames.slice(0, 10);
-            setGames(mostRecentGames);
-          }
-          catch (error) {
-            console.error("Error fetching data", error);
-            throw error;
-          }
+                    // const call = await fetch(`https://api-basketball.p.rapidapi.com/games?league=12&season=2023-2024&team=${teamDetails.Team_Number}`, {
+                    //     method: "GET",
+                    //     headers: headers
+                    // });
+                    const data = await call.json();
+                    console.log(data);
+                    const sortedGames = data.response.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    // Take the first 5 games
+                    const mostRecentGames = sortedGames.slice(0, 10);
+                    setGames(mostRecentGames);
+                } catch (error) {
+                    console.error("Error fetching data", error);
+                    throw error;
+                }
+            }
+    
+            callNbaApi().catch(console.error);
         }
+    }, [teamDetails]);
     
-        callNbaApi().catch(console.error);
-      }, [])
 
     return (
         <div>
