@@ -4,10 +4,58 @@ const cors = require('cors');
 
 // Enable CORS middleware
 app.use(cors());
+app.use(express.json()); // Enable parsing of JSON bodies for POST requests
+
 
 // Define routes
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+// Define route for user signup. Post allows us to insert into the database
+app.post('/signup', (req, res) => {
+  const { username, password, favorite_team } = req.body;
+  const query = 'INSERT INTO nbagame_schema.User (Username, Password, Favorite_Team) VALUES (?, ?, ?)';
+  connection.query(query, [username, password, favorite_team], (error, results) => {
+    if (error) {
+      console.error('Error inserting user data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      console.log('User inserted successfully');
+      res.status(201).json({ message: 'User created successfully' });
+    }
+  });
+});
+
+app.get('/users', (req, res) => {
+  query = 'SELECT * FROM nbagame_schema.User;';
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching user data', error);
+      res.status(500).json({error: 'Internal server error'});
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/:username', (req, res) => {
+  query = 'SELECT Username, Password FROM nbagame_schema.User WHERE Username = ?;';
+  const username = req.params.username
+  connection.query(query, [username], (error, results) => {
+    if (error) {
+      console.error('Error fetching User credential details:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      if (results.length === 0) {
+        // If no user found for the provided username
+        res.status(404).json({ error: 'Username not found' });
+      } else {
+        // Return the details of the team
+        res.json(results[0]);
+      }
+    }
+  });
 });
 
 // Define API endpoint to fetch NBA player data

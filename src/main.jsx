@@ -8,11 +8,15 @@ import NbaView from './routes/NbaTeamView.jsx'
 import PlayerView from './routes/NbaPlayerView.jsx'
 import NbaPlayerDetail from './components/nba-player-details.jsx'
 import BoxScoreView from './routes/BoxScoreView.jsx'
+import Login from './components/Login.jsx'
+import CreateUser from './routes/CreateUser.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path='/' element={<App/>} />
+      <Route path='/' element={<Login/>} />
+      <Route path='/sign-up' element={<CreateUser/>} />
+      <Route path='/:username' element={<App/>} />
       <Route path='/nba-team/:team_code' element={<NbaView />} />
       <Route path='/nba-players' element={<PlayerView />} />
       <Route path='/nba-players/:player_id' element={<NbaPlayerDetail />} />

@@ -5,7 +5,7 @@ const RightRail = () => {
 
     return (
         <div>
-            Right rail
+            <h3> League News </h3>
             <div>
                 {NbaNews && NbaNews.map((item, index) => (
                     <ul key={index}>
