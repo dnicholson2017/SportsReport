@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import './navbar.css'
 
 
 let Navbar = () => {
 
     const [nbaTeams, setNbaTeams] = useState(null);
+    const { username } = useParams();
 
     useEffect(() => {
         const callDatabase = async () => {
@@ -28,8 +30,8 @@ let Navbar = () => {
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                <a className="navbar-brand" href="#">
-                    Navbar
+                <a className="navbar-brand" href={`/${username}`}>
+                    SportsReport
                 </a>
                 <button
                     className="navbar-toggler"
@@ -87,11 +89,11 @@ let Navbar = () => {
                         </a>
                         <ul className="dropdown-menu">
                             <div>
-                                <Link to={`/nba-players`}>
+                                <Link to={`/${username}/nba-players`}>
                                     Players
                                 </Link>
                                 <p>Home</p>
-                                <Link to={`/box-score`}>
+                                <Link to={`/${username}/box-score`}>
                                     <p>Scores</p>
                                 </Link>
                                 <p>Schedule</p>
@@ -100,7 +102,7 @@ let Navbar = () => {
                             <div className="nba-teams-grid">
                                 {nbaTeams && nbaTeams.map((team, index) => (
                                     <li key={index}>
-                                    <Link to={`/nba-team/${team.Team_Code}`} key={team.Team_Code}>
+                                    <Link to={`/${username}/nba-team/${team.Team_Code}`} key={team.Team_Code}>
                                         <a className="dropdown-item" href="#">
                                         {team.Team_Name}
                                         </a>
@@ -205,49 +207,7 @@ let Navbar = () => {
                         </li>
                         </ul>
                     </li>
-                    <li className="nav-item dropdown">
-                        <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        >
-                        ...
-                        </a>
-                        <ul className="dropdown-menu">
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Action
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Another action
-                            </a>
-                        </li>
-                        <li>
-                            <hr className="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                            Something else here
-                            </a>
-                        </li>
-                        </ul>
-                    </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                    <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                    />
-                    <button className="btn btn-outline-success" type="submit">
-                        Search
-                    </button>
-                    </form>
                 </div>
                 </div>
             </nav>

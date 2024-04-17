@@ -17,10 +17,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/' element={<Login/>} />
       <Route path='/sign-up' element={<CreateUser/>} />
       <Route path='/:username' element={<App/>} />
-      <Route path='/nba-team/:team_code' element={<NbaView />} />
-      <Route path='/nba-players' element={<PlayerView />} />
-      <Route path='/nba-players/:player_id' element={<NbaPlayerDetail />} />
-      <Route path='/box-score' element={<BoxScoreView />} />
+      <Route path='/:username/nba-team/:team_code' element={<NbaView />} />
+      <Route path='/:username/nba-players' element={<PlayerView />} />
+      <Route path='/:username/nba-players/:player_id' element={<NbaPlayerDetail />} />
+      <Route path='/:username/box-score' element={<BoxScoreView />} />
     </Routes>
   </BrowserRouter>
 )

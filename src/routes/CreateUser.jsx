@@ -52,6 +52,7 @@ const CreateUser = () => {
             }
     
             console.log('User created successfully');
+            window.location = "/";
             // Redirect or perform any other action upon successful user creation
         } catch (error) {
             console.error('Error creating user:', error.message);

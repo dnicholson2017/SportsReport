@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Navbar from "./navbar";
 import './nba-player-details.css';
 
 const NbaPlayerDetail = () => {
@@ -26,6 +27,7 @@ const NbaPlayerDetail = () => {
 
     return (
         <div>
+            <Navbar />
             <div className="player-name-container">
                 {playerStats.length > 0 && (
                     <h1>{playerStats[0]['Player Name']}</h1>

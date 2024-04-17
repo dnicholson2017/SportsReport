@@ -40,7 +40,7 @@ const Login = () => {
 
     
     const callSignup = () => {
-    console.log('call sign up function called');
+        console.log('call sign up function called');
     }
 
     return (

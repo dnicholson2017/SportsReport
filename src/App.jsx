@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
@@ -12,6 +13,7 @@ function App() {
   const [playlistId, setPlaylistId] = useState(null);
   const [list2, setList2] = useState(null);
   const [nbaList, setNbaList] = useState(null);
+  const { username } = useParams(); // Extract username from URL
 
 
   
@@ -62,13 +64,18 @@ function App() {
           'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
         });
 
-        // const call = await fetch("https://api-basketball.p.rapidapi.com/games?date=2019-11-26", {
+        // const call = await fetch("https://api-basketball.p.rapidapi.com/games?league=12&season=2023-2024", {
         //   method:"GET",
         //   headers:headers
         // });
         const response = await call.json();
         console.log(response);
-        setNbaList(response);
+        const sortedGames = response.response.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Take the first 5 games
+        const mostRecentGames = sortedGames.slice(0, 20);
+        setNbaList(mostRecentGames);
+        console.log(mostRecentGames);
+
       }
       catch (error) {
         console.error("Error fetching data", error);
@@ -83,7 +90,9 @@ function App() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar
+        username={username}
+      />
       <div className="container">
         <LeftRail
           nbaList={nbaList}
@@ -98,4 +107,3 @@ function App() {
 }
 
 export default App;
-
