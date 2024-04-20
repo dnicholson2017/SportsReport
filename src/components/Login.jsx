@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate  } from "react-router-dom";
+import './Login.css';
+// import './boxscore.css';
 
 const Login = () => {
 
@@ -45,15 +47,15 @@ const Login = () => {
 
     return (
 
-        <div>
+        <div className="login-container">
             <h1>Login</h1>
-            <form className='login-form'>
+            <form>
 
-                <label>Username</label>
+                <label>Username</label> <br />
                 <input type='text' id='username' name='username' onChange={handleChange}/><br/>
                 <br/>
 
-                <label>Password</label>
+                <label>Password</label> <br />
                 <input type='text' id='password' name='password' onChange={handleChange}/><br/>
                 <br/>
 

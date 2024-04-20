@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import './CreateUser.css';
 
 const CreateUser = () => {
 
@@ -61,7 +61,7 @@ const CreateUser = () => {
     
 
     return (
-        <div>
+        <div className="sign-up-container">
             <h1>Sign-Up</h1>
             <form>
 
@@ -81,7 +81,8 @@ const CreateUser = () => {
                     ))}
                 </select>
 
-                <input type="submit" value="Submit" onClick={createUser} />
+                <button type="button" onClick={createUser}>Sign-Up</button>
+
                 
             </form>
         </div>
