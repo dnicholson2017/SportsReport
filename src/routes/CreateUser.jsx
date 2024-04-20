@@ -70,7 +70,7 @@ const CreateUser = () => {
                 <br/>
 
                 <label for="password">Password</label> <br />
-                <input type="text" id="password" name="password" onChange={handleChange} /><br />
+                <input type="password" id="password" name="password" onChange={handleChange} /><br />
                 <br/>
 
                 <label for="favorite_team">Favorite Team</label> <br />

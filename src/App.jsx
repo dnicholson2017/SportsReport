@@ -12,7 +12,7 @@ import Card from "./components/card";
 function App() {
   const [playlistId, setPlaylistId] = useState(null);
   const [list2, setList2] = useState(null);
-  const [nbaList, setNbaList] = useState(null);
+  const [nbaList, setNbaList] = useState([]);
   const { username } = useParams(); // Extract username from URL
 
 
@@ -71,8 +71,8 @@ function App() {
         const response = await call.json();
         console.log(response);
         const sortedGames = response.response.sort((a, b) => new Date(b.date) - new Date(a.date));
-        // Take the first 5 games
-        const mostRecentGames = sortedGames.slice(0, 20);
+        // Take the first 20 games
+        const mostRecentGames = sortedGames.slice(0, 100);
         setNbaList(mostRecentGames);
         console.log(mostRecentGames);
 
